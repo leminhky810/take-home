@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.ide.kotlinExtrasSerialization
+
 /*
  * Copyright 2022 The Android Open Source Project
  *
@@ -14,19 +16,10 @@
  * limitations under the License.
  */
 plugins {
-    alias(libs.plugins.project.android.library)
-    alias(libs.plugins.project.android.library.compose)
-}
-
-android {
-    namespace = "com.minhky.takehome.core.ui"
+    alias(libs.plugins.project.jvm.library)
+    alias(libs.plugins.project.hilt)
 }
 
 dependencies {
-
-    api(projects.core.designsystem)
-//    api(projects.core.model)
-
-    implementation(libs.coil.kt)
-    implementation(libs.coil.kt.compose)
+    implementation(libs.kotlinx.coroutines.core)
 }

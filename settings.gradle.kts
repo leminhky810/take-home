@@ -29,5 +29,11 @@ dependencyResolutionManagement {
 rootProject.name = "Take-Home"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":core:designsystem")
-include(":core:ui")
+include(":core:common")
+include(":core:preferences")
+include(":core:model")
+include(":core:database")
+include(":core:network")
+include(":core:data")
+include(":core:domain")
+include(":core:sync")

@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">ITNews</string>
+    <string name="app_name">Take-Home</string>
+    <string name="home_label">Github Users</string>
+    <string name="user_detail_label">User Detail</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="blog">Blog</string>
+
+
+
+    <string name="data_empty">Data is empty!</string>
+    <string name="not_connected">⚠️ You aren’t connected to the internet</string>
+
 </resources>

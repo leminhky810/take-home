@@ -1,6 +1,7 @@
 package com.minhky.takehome.feature.profile
 
 import androidx.annotation.VisibleForTesting
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.stringResource
@@ -41,7 +43,6 @@ fun UserProfileRoute(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     UserProfileScreen(
         state = state,
-        onShowSnackbar = onShowSnackbar,
         onBack = onBack,
         modifier = modifier
     )
@@ -51,7 +52,6 @@ fun UserProfileRoute(
 @Composable
 internal fun UserProfileScreen(
     state: UserProfileUiState,
-    onShowSnackbar: suspend (String, String?) -> Boolean,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -68,8 +68,18 @@ internal fun UserProfileScreen(
         )
         Spacer(modifier = Modifier.height(8.dp))
         when (state) {
-            UserProfileUiState.Loading -> LoadingState(modifier)
-            UserProfileUiState.Error -> EmptyState(modifier)
+            UserProfileUiState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    LoadingState(
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+            }
+            is UserProfileUiState.Error -> {
+                EmptyState(message = state.message, modifier)
+            }
             is UserProfileUiState.Success -> UserProfile(
                 state.data,
                 modifier
@@ -84,7 +94,6 @@ fun UserProfileScreenPreview() {
     ProjectTheme {
         UserProfileScreen(
             state = fakeUserProfileUiState,
-            onShowSnackbar = { _, _ -> false },
             onBack = {},
         )
     }
@@ -150,7 +159,7 @@ private fun UserProfile(
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = blogLabel,
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(8.dp))
         user.htmlUrl?.let {

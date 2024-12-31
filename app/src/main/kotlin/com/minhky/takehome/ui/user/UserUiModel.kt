@@ -1,10 +1,10 @@
 package com.minhky.takehome.ui.user
 
-import com.minhky.core.database.model.UserEntity
+import com.minhky.core.data.model.UserModel
 
 data class UserUiModel(
     val id: Long,
-    val login: String? = null,
+    val login: String,
     val avatarUrl: String? = null,
     val htmlUrl: String? = null,
     val location: String? = null,
@@ -12,7 +12,7 @@ data class UserUiModel(
     val following: String = "",
 )
 
-fun UserEntity.asUserUiModel(): UserUiModel {
+fun UserModel.asUserUiModel(): UserUiModel {
     return UserUiModel(
         id = id,
         login = login,

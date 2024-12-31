@@ -30,7 +30,7 @@ import com.minhky.takehome.ui.user.UserUiModel
 
 @Composable
 fun HomeRoute(
-    onUserProfileClick: (Long) -> Unit,
+    onUserProfileClick: (String) -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
@@ -50,7 +50,7 @@ fun HomeRoute(
 internal fun HomeScreen(
     userPaging: LazyPagingItems<UserUiModel>,
     onShowSnackbar: suspend (String, String?) -> Boolean,
-    onUserProfileClick: (Long) -> Unit,
+    onUserProfileClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val label = stringResource(id = R.string.home_label)
@@ -64,6 +64,21 @@ internal fun HomeScreen(
         }
     }
 
+    HomeScreenComponent(
+        label = label,
+        userPaging = userPaging,
+        onUserProfileClick = onUserProfileClick,
+        modifier = modifier
+    )
+}
+
+@Composable
+internal fun HomeScreenComponent(
+    label: String,
+    userPaging: LazyPagingItems<UserUiModel>,
+    onUserProfileClick: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -146,7 +161,7 @@ fun HomeScreenPreview() {
 @Composable
 private fun UsersList(
     list: List<UserUiModel>,
-    onClick: (Long) -> Unit,
+    onClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -165,7 +180,7 @@ private fun UsersList(
 @Composable
 private fun UserItem(
     user: UserUiModel,
-    onClick: (Long) -> Unit,
+    onClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(

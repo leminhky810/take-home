@@ -18,7 +18,10 @@ import com.minhky.takehome.R
 import com.minhky.takehome.designsystem.theme.ProjectTheme
 
 @Composable
-fun EmptyState(modifier: Modifier = Modifier) {
+fun EmptyState(
+    message: String = stringResource(id = R.string.data_empty),
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .padding(16.dp)
@@ -27,7 +30,7 @@ fun EmptyState(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = stringResource(id = R.string.data_empty),
+            text = message,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,

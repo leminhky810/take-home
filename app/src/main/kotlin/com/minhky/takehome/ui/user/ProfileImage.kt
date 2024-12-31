@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.minhky.takehome.R
+import com.minhky.takehome.ui.state.LoadingState
 
 @Composable
 fun ProfileImage(
@@ -46,7 +48,7 @@ fun ProfileImage(
         modifier = modifier
             .size(100.dp),
         shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
     ) {
         Box(
             modifier = Modifier
@@ -62,18 +64,18 @@ fun ProfileImage(
         ) {
             if (isLoading) {
                 // Display a progress bar while loading
-                CircularProgressIndicator(
+                LoadingState(
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .fillMaxSize(),
-                    color = MaterialTheme.colorScheme.tertiary,
+                        .fillMaxSize()
                 )
             }
 
             Image(
                 modifier = Modifier
                     .aspectRatio(1f)
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .clip(CircleShape),
                 contentScale = ContentScale.FillBounds,
                 painter = if (isError.not() && !isLocalInspection) {
                     imageLoader

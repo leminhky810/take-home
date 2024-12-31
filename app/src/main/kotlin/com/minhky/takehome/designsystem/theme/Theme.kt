@@ -15,28 +15,28 @@ import androidx.compose.ui.graphics.Color
 @VisibleForTesting
 val LightColorScheme = lightColorScheme(
     primary = Color.White,
-    onPrimary = Color.Black,
-    primaryContainer = Color.Black,
+    onPrimary = Black900,
+    primaryContainer = Black900,
     onPrimaryContainer = Color.White,
     secondary = Color.Gray,
     onSecondary = Color.White,
     secondaryContainer = Color.DarkGray,
     onSecondaryContainer = Color.White,
     tertiary = Color.LightGray,
-    onTertiary = Color.Black,
+    onTertiary = Gray800,
     tertiaryContainer = Color.Gray,
-    onTertiaryContainer = Color.Black,
+    onTertiaryContainer = Black900,
     error = Color.Red,
     onError = Color.White,
     errorContainer = Color.Red,
     onErrorContainer = Color.White,
     background = Color.White,
     onBackground = Color.DarkGray,
-    surface = Color.White,
-    onSurface = Color.Black,
+    surface = Gray100,
+    onSurface = Black900,
     surfaceVariant = Color.LightGray,
-    onSurfaceVariant = Color.Black,
-    inverseSurface = Color.Black,
+    onSurfaceVariant = Black900,
+    inverseSurface = Black900,
     inverseOnSurface = Color.White,
     outline = Color.Gray,
 )
@@ -46,30 +46,30 @@ val LightColorScheme = lightColorScheme(
  */
 @VisibleForTesting
 val DarkColorScheme = darkColorScheme(
-    primary = Color.Black,
+    primary = Black900,
     onPrimary = Color.White,
     primaryContainer = Color.White,
-    onPrimaryContainer = Color.Black,
+    onPrimaryContainer = Black900,
     secondary = Color.Gray,
-    onSecondary = Color.Black,
+    onSecondary = Black900,
     secondaryContainer = Color.LightGray,
-    onSecondaryContainer = Color.Black,
+    onSecondaryContainer = Black900,
     tertiary = Color.DarkGray,
     onTertiary = Color.White,
     tertiaryContainer = Color.Gray,
     onTertiaryContainer = Color.White,
     error = Color.Red,
-    onError = Color.Black,
+    onError = Black900,
     errorContainer = Color.Red,
-    onErrorContainer = Color.Black,
-    background = Color.Black,
+    onErrorContainer = Black900,
+    background = Black900,
     onBackground = Color.White,
-    surface = Color.Black,
+    surface = Gray800,
     onSurface = Color.White,
     surfaceVariant = Color.DarkGray,
     onSurfaceVariant = Color.White,
     inverseSurface = Color.White,
-    inverseOnSurface = Color.Black,
+    inverseOnSurface = Black900,
     outline = Color.Gray,
 )
 
@@ -83,6 +83,12 @@ val LightBackgroundTheme = BackgroundTheme(color = Color.White)
  */
 val DarkBackgroundTheme = BackgroundTheme(color = Color.DarkGray)
 
+/**
+ * Composable function to apply the project theme.
+ *
+ * @param darkTheme A boolean flag indicating whether the dark theme should be used. Defaults to the system's dark theme setting.
+ * @param content The composable content to be displayed within the theme.
+ */
 @Composable
 fun ProjectTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

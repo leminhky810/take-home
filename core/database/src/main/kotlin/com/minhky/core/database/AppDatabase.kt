@@ -7,6 +7,11 @@ import com.minhky.core.database.dao.UserDao
 import com.minhky.core.database.model.UserEntity
 import com.minhky.core.database.util.InstantConverter
 
+/**
+ * The main database for the application.
+ *
+ * @property userDao Provides access to user-related database operations.
+ */
 @Database(
     entities = [
         UserEntity::class,
@@ -21,5 +26,10 @@ import com.minhky.core.database.util.InstantConverter
     InstantConverter::class,
 )
 abstract class AppDatabase : RoomDatabase() {
+    /**
+     * Abstract method to get the UserDao.
+     *
+     * @return The UserDao instance.
+     */
     abstract fun userDao(): UserDao
 }

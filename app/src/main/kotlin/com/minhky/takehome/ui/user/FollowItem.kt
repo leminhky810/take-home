@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.minhky.takehome.R
+import com.minhky.takehome.designsystem.theme.Gray200
 import com.minhky.takehome.designsystem.theme.ProjectTheme
 
 @Composable
@@ -35,7 +36,7 @@ fun FollowItem(
     ){
         Box(
             modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.secondary, shape = CircleShape)
+                .background(color = Gray200, shape = CircleShape)
         ) {
             Image(
                 painter = painterResource(id = resId),
@@ -43,23 +44,22 @@ fun FollowItem(
                 contentScale = ContentScale.Inside,
                 modifier = Modifier
                     .size(48.dp)
-                    .padding(8.dp)
+                    .padding(10.dp)
                     .align(Alignment.Center)
             )
         }
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = count,
+            text = text,
             style = MaterialTheme.typography.titleSmall,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = text,
-            style = MaterialTheme.typography.bodySmall,
+            text = count,
+            style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
-
     }
 
 

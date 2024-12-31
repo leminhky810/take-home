@@ -24,10 +24,20 @@ import okhttp3.Call
 import okhttp3.Interceptor
 import javax.inject.Singleton
 
+/**
+ * Dagger module for providing OkHttpClient dependencies.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 internal object OkHttpClientModule {
 
+    /**
+     * Provides a singleton instance of NetworkAuthenticator.
+     *
+     * @param prefs The shared preferences for the application.
+     * @param dataSource The service to refresh tokens.
+     * @return The NetworkAuthenticator instance.
+     */
     @NetworkAuthenticatorScope
     @Provides
     @Singleton
@@ -36,6 +46,12 @@ internal object OkHttpClientModule {
         dataSource: RefreshTokenService
     ): Authenticator = NetworkAuthenticator(prefs, dataSource)
 
+    /**
+     * Provides a singleton instance of HeaderInterceptor with authentication.
+     *
+     * @param prefs The shared preferences for the application.
+     * @return The HeaderInterceptor instance.
+     */
     @HeaderInterceptorAuth
     @Provides
     @Singleton
@@ -43,6 +59,11 @@ internal object OkHttpClientModule {
         prefs: AppSharedPreferences
     ): Interceptor = HeaderInterceptor(prefs)
 
+    /**
+     * Provides a singleton instance of HeaderNoAuthInterceptor without authentication.
+     *
+     * @return The HeaderNoAuthInterceptor instance.
+     */
     @HeaderInterceptorNoAuth
     @Provides
     @Singleton
@@ -50,18 +71,36 @@ internal object OkHttpClientModule {
     ): Interceptor =
         HeaderNoAuthInterceptor()
 
+    /**
+     * Provides a singleton instance of HttpLoggingInterceptor with authentication.
+     *
+     * @return The HttpLoggingInterceptor instance.
+     */
     @HttpLoggingInterceptorAuth
     @Provides
     @Singleton
     fun providerHttpLoggingInterceptorWithAut(
     ): Interceptor = createHttpLoggingInterceptor()
 
+    /**
+     * Provides a singleton instance of HttpLoggingInterceptor without authentication.
+     *
+     * @return The HttpLoggingInterceptor instance.
+     */
     @HttpLoggingInterceptorNoAuth
     @Provides
     @Singleton
     fun providerHttpLoggingInterceptorWithoutAut(
     ): Interceptor = createHttpLoggingInterceptor()
 
+    /**
+     * Provides a singleton instance of OkHttpClient with authentication.
+     *
+     * @param authenticator The authenticator for network requests.
+     * @param header The header interceptor with authentication.
+     * @param logging The logging interceptor with authentication.
+     * @return The Call.Factory instance.
+     */
     @OkHttpClientAuth
     @Provides
     @Singleton
@@ -75,7 +114,13 @@ internal object OkHttpClientModule {
         logging = logging
     )
 
-
+    /**
+     * Provides a singleton instance of OkHttpClient without authentication.
+     *
+     * @param header The header interceptor without authentication.
+     * @param logging The logging interceptor without authentication.
+     * @return The Call.Factory instance.
+     */
     @OkHttpClientNoAuth
     @Provides
     @Singleton

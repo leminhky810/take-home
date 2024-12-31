@@ -16,23 +16,44 @@ import retrofit2.Retrofit
 import javax.inject.Named
 import javax.inject.Singleton
 
+/**
+ * Dagger module for providing Retrofit instances.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
 
     private const val BASE_URL = "Endpoint"
 
+    /**
+     * Provides the backend URL.
+     *
+     * @return The backend URL from BuildConfig.
+     */
     @Named(BASE_URL)
     @Provides
     @Singleton
     fun provideEndpoint() = BuildConfig.BACKEND_URL
 
+    /**
+     * Provides a singleton instance of Json with specific configuration.
+     *
+     * @return The Json instance.
+     */
     @Provides
     @Singleton
     fun provideJson() = Json {
         ignoreUnknownKeys = true
     }
 
+    /**
+     * Provides a singleton instance of Retrofit with authentication.
+     *
+     * @param baseUrl The base URL for the Retrofit instance.
+     * @param okhttpCallFactory The lazy-initialized Call.Factory instance with authentication.
+     * @param json The Json instance for serialization.
+     * @return The Retrofit instance with authentication.
+     */
     @RetrofitAuth
     @Provides
     @Singleton
@@ -42,6 +63,14 @@ object RetrofitModule {
         json: Json
     ): Retrofit = createRetrofit(baseUrl, json, okhttpCallFactory)
 
+    /**
+     * Provides a singleton instance of Retrofit without authentication.
+     *
+     * @param baseUrl The base URL for the Retrofit instance.
+     * @param okhttpCallFactory The lazy-initialized Call.Factory instance without authentication.
+     * @param json The Json instance for serialization.
+     * @return The Retrofit instance without authentication.
+     */
     @RetrofitNoAuth
     @Provides
     @Singleton

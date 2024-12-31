@@ -4,17 +4,24 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.withTransaction
+import com.minhky.core.data.mapper.asUsersEntity
 import com.minhky.core.database.AppDatabase
 import com.minhky.core.database.model.UserEntity
+import com.minhky.core.network.model.response.ErrorResponse
 import com.minhky.core.network.service.UserService
+import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import java.io.IOException
-import androidx.room.withTransaction
-import com.minhky.core.network.model.response.ErrorResponse
-import com.minhky.core.network.model.response.UserResponse
-import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
+/**
+ * A RemoteMediator implementation for handling user data synchronization between the network and the local database.
+ *
+ * @property service The UserService for making network requests.
+ * @property repoDatabase The AppDatabase for accessing the local database.
+ * @property json The Json instance for parsing error responses.
+ */
 @OptIn(ExperimentalPagingApi::class)
 class UserRemoteMediator @Inject constructor(
     private val service: UserService,
@@ -22,7 +29,13 @@ class UserRemoteMediator @Inject constructor(
     private val json: Json
 ) : RemoteMediator<Int, UserEntity>() {
 
-
+    /**
+     * Loads data from the network and synchronizes it with the local database.
+     *
+     * @param loadType The type of load operation (REFRESH, PREPEND, APPEND).
+     * @param state The current state of the paging system.
+     * @return A MediatorResult indicating the success or failure of the load operation.
+     */
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, UserEntity>
@@ -73,23 +86,5 @@ class UserRemoteMediator @Inject constructor(
         } catch(e: HttpException) {
             MediatorResult.Error(e)
         }
-    }
-}
-
-fun UserResponse.asUserEntity(): UserEntity {
-    return UserEntity(
-        id = id,
-        login = login,
-        avatarUrl = avatarUrl,
-        htmlUrl = htmlUrl,
-        location = location,
-        followers = followers,
-        following = following
-    )
-}
-
-fun List<UserResponse>.asUsersEntity(): List<UserEntity> {
-    return map {
-        it.asUserEntity()
     }
 }

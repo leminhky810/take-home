@@ -5,17 +5,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import com.minhky.takehome.R
 
-val LatoFont = FontFamily(
+val DefaultFont = FontFamily(
     Font(
-        resId = R.font.lato_light,
+        resId = R.font.notosans_regular,
         weight = FontWeight.Normal
     ),
     Font(
-        resId = R.font.lato_regular,
+        resId = R.font.notosans_medium,
         weight = FontWeight.Medium
     ),
     Font(
-        resId = R.font.lato_bold,
+        resId = R.font.notosans_bold,
         weight = FontWeight.Bold
     )
 )

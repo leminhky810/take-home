@@ -14,12 +14,21 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ * ViewModel for the home screen.
+ *
+ * @property userPagingSource The paging source for user data.
+ * @property ioDispatcher The coroutine dispatcher for IO operations.
+ */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     userPagingSource: UserPagingSource,
     @Dispatcher(AppDispatchers.IO) ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
+    /**
+     * The paginated user data, transformed to UI models and cached in the view model scope.
+     */
     val userPaging = userPagingSource.paging.map {
         it.map {
             it.asUserUiModel()

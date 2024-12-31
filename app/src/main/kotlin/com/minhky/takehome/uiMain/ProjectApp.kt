@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
@@ -19,10 +18,6 @@ import androidx.compose.material3.SnackbarDuration.Indefinite
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult.ActionPerformed
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.adaptive.WindowAdaptiveInfo
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -30,15 +25,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.minhky.takehome.designsystem.component.ProjectBackground
 import com.minhky.takehome.R
+import com.minhky.takehome.designsystem.component.ProjectBackground
 import com.minhky.takehome.navigation.ProjectNavHost
 
+/**
+ * Composable function that sets up the main structure of the Project app.
+ *
+ * @param appState The state of the application.
+ * @param modifier Modifier to be applied to the layout.
+ */
 @Composable
 fun ProjectApp(
     appState: ProjectAppState,
@@ -68,6 +68,13 @@ fun ProjectApp(
     }
 }
 
+/**
+ * Private composable function that sets up the scaffold and navigation host for the Project app.
+ *
+ * @param appState The state of the application.
+ * @param snackbarHostState The state of the SnackbarHost.
+ * @param modifier Modifier to be applied to the layout.
+ */
 @Composable
 @OptIn(
     ExperimentalMaterial3Api::class,

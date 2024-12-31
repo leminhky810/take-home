@@ -12,11 +12,20 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+/**
+ * ViewModel for the MainActivity.
+ *
+ * @property uiState The state of the UI, represented as a StateFlow of MainActivityUiState.
+ */
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     appSharedPreferences: AppSharedPreferences
 ) : ViewModel() {
 
+    /**
+     * The UI state of the MainActivity.
+     * It retrieves the user session from the shared preferences and maps it to a Success state after a delay.
+     */
     val uiState: StateFlow<MainActivityUiState> = appSharedPreferences.getUserSession().map {
         delay(1000L)
         MainActivityUiState.Success(it)
@@ -28,9 +37,20 @@ class MainActivityViewModel @Inject constructor(
 
 }
 
+/**
+ * Represents the different states of the MainActivity UI.
+ */
 sealed interface MainActivityUiState {
+    /**
+     * Represents the loading state of the UI.
+     */
     data object Loading : MainActivityUiState
 
+    /**
+     * Represents the success state of the UI with the user session data.
+     *
+     * @property useSession The user session data.
+     */
     data class Success(val useSession: AppSession) : MainActivityUiState
 
     /**
@@ -40,7 +60,8 @@ sealed interface MainActivityUiState {
 
     /**
      * Returns `true` if dark theme should be used.
+     *
+     * @param isSystemDarkTheme Indicates if the system is using dark theme.
      */
     fun shouldUseDarkTheme(isSystemDarkTheme: Boolean) = isSystemDarkTheme
 }
-

@@ -15,10 +15,18 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
+/**
+ * Dagger module for providing dependencies related to image loading and network calls.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 internal object LoaderModule {
 
+    /**
+     * Provides a singleton instance of OkHttpClient as Call.Factory.
+     *
+     * @return The Call.Factory instance.
+     */
     @Provides
     @Singleton
     fun okHttpCallFactory(): Call.Factory =
@@ -33,26 +41,22 @@ internal object LoaderModule {
             )
             .build()
 
-
     /**
-     * Since we're displaying SVGs in the app, Coil needs an ImageLoader which supports this
-     * format. During Coil's initialization it will call `applicationContext.newImageLoader()` to
-     * obtain an ImageLoader.
+     * Provides a singleton instance of ImageLoader configured to support SVG decoding.
      *
-     * @see <a href="https://github.com/coil-kt/coil/blob/main/coil-singleton/src/main/java/coil/Coil.kt">Coil</a>
+     * @param okHttpCallFactory The lazy-initialized Call.Factory instance.
+     * @param application The application context.
+     * @return The ImageLoader instance.
      */
     @Provides
     @Singleton
     fun imageLoader(
-        // We specifically request dagger.Lazy here, so that it's not instantiated from Dagger.
         okHttpCallFactory: dagger.Lazy<Call.Factory>,
         @ApplicationContext application: Context,
     ): ImageLoader =
         ImageLoader.Builder(application)
             .callFactory { okHttpCallFactory.get() }
             .components { add(SvgDecoder.Factory()) }
-            // Assume most content images are versioned urls
-            // but some problematic images are fetching each time
             .respectCacheHeaders(false)
             .apply {
                 if (BuildConfig.DEBUG) {
@@ -60,5 +64,4 @@ internal object LoaderModule {
                 }
             }
             .build()
-
 }

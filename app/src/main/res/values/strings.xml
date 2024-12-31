@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Take-Home</string>
     <string name="home_label">Github Users</string>
-    <string name="user_detail_label">User Detail</string>
+    <string name="user_detail_label">User Details</string>
     <string name="follower">Follower</string>
     <string name="following">Following</string>
     <string name="blog">Blog</string>

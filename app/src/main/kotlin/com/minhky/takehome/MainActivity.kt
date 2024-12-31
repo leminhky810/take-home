@@ -28,6 +28,10 @@ import javax.inject.Inject
 import kotlin.getValue
 import com.minhky.takehome.util.isSystemInDarkTheme
 
+/**
+ * MainActivity is the entry point of the application.
+ * It sets up the UI and handles theme settings based on the system's dark mode and user preferences.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -47,7 +51,6 @@ class MainActivity : ComponentActivity() {
                 darkTheme = resources.configuration.isSystemInDarkTheme
             ),
         )
-
 
         // Update the uiState
         lifecycleScope.launch {
@@ -103,7 +106,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 /**
  * The default light scrim, as defined by androidx and the platform:
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
@@ -116,7 +118,11 @@ private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
  */
 private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
 
-
+/**
+ * Data class representing the theme settings.
+ *
+ * @property darkTheme Boolean indicating if dark theme is enabled.
+ */
 data class ThemeSettings(
     val darkTheme: Boolean
 )

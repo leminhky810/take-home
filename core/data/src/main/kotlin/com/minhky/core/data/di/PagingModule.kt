@@ -9,10 +9,20 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Dagger module for providing paging-related dependencies.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object PagingModule {
 
+    /**
+     * Provides a singleton instance of UserPagingSource.
+     *
+     * @param userDao The DAO for accessing user data.
+     * @param userRemoteMediator The remote mediator for handling user data synchronization.
+     * @return A UserPagingSource instance.
+     */
     @Provides
     @Singleton
     fun provideUserPagingSource(

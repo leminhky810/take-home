@@ -15,6 +15,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.ColorFilter
@@ -28,7 +29,7 @@ import com.minhky.takehome.designsystem.theme.ProjectTheme
 @Composable
 fun UserCard(
     userUiModel: UserUiModel,
-    onClick: (Long) -> Unit,
+    onClick: (String) -> Unit,
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -43,7 +44,7 @@ fun UserCard(
                 clip = true
             )
             .clickable {
-                onClick(userUiModel.id)
+                onClick(userUiModel.login)
             }
     ) {
         Row(
@@ -56,12 +57,10 @@ fun UserCard(
                 modifier = Modifier
                     .padding(start = 12.dp)
             ) {
-                userUiModel.login?.let {
-                    Text(
-                        style = MaterialTheme.typography.titleMedium,
-                        text = it
-                    )
-                }
+                Text(
+                    style = MaterialTheme.typography.titleMedium,
+                    text = userUiModel.login.capitalizeFirstChar()
+                )
                 HorizontalDivider(
                     thickness = 1.dp,
                     modifier = Modifier.padding(vertical = 8.dp)
@@ -112,7 +111,10 @@ fun LocationText(
     location: String,
     modifier: Modifier = Modifier,
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
             painter = painterResource(id = R.drawable.ic_location),
             contentDescription = null,
@@ -123,7 +125,12 @@ fun LocationText(
         Spacer(modifier = Modifier.size(4.dp))
         Text(
             text = location,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.secondary
         )
     }
+}
+
+fun String.capitalizeFirstChar(): String {
+    return this.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
 }

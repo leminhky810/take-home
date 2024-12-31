@@ -18,6 +18,8 @@ dependencies {
     api(projects.core.preferences)
     api(projects.core.network)
 
-//    testImplementation(libs.kotlinx.coroutines.test)
-//    testImplementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.retrofit.mock)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
 }

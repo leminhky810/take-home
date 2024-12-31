@@ -2,6 +2,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import com.minhky.project.AppBuildType
 import org.gradle.kotlin.dsl.add
 import org.gradle.kotlin.dsl.android
+import org.gradle.kotlin.dsl.test
 
 plugins {
     alias(libs.plugins.project.android.application)
@@ -107,9 +108,14 @@ dependencies {
     kspTest(libs.hilt.compiler)
     testImplementation(libs.kotlin.test)
 
-    androidTestImplementation(libs.androidx.test.espresso.core)
+    implementation(libs.bundles.androidx.compose.ui.test)
+
+//    androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.kotlin.test)
+
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
 
     // Timber
     implementation(libs.timber)
